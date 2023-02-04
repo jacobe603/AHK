@@ -7,7 +7,7 @@ if (!A_IsCompiled && !InStr(A_AhkPath, "_UIA.exe")) {
 }
 
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-#Warn  ; Enable warnings to assist with detecting common errors.
+;#Warn  ; Enable warnings to assist with detecting common errors.
 
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -20,8 +20,9 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 user = %A_UserName%
 
 #Include Scripts\Win_Improvements.ahk
-#Include Scripts\SVL.ahk
-#Include Scipts\TextMath.ahk
+#Include Scripts\Work.ahk
+#Include Scripts\TextMath.ahk
+#Include, Scripts\Text_Expand.ahk
 
 ;Run "C:\Users\%user%\OneDrive - Schwab Vollhaber Lubratt Inc\Desktop\AHK - Local\Go To Job - OB v1.ahk"
 Run "C:\Users\%user%\OneDrive - Schwab Vollhaber Lubratt Inc\Desktop\AHK - Local\JN as Typed.ahk"

@@ -35,7 +35,6 @@ return
 up::SendInput, {Alt down}{Up}{Alt up}
 left::SendInput, {Alt down}{Left}{Alt up}
 right::SendInput, {Alt down}{Right}{Alt up}
-;return
 #IfWinActive
 
 ;CLOSE WITH CTRL SHIFT RBUTTON
