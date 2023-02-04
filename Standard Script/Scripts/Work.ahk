@@ -1,11 +1,6 @@
 ; Specific Improvements for work
 
 
-
-
-
-
-
 ; Revisions to Filename
 ^!a:: ; Press [ Control + Alt + A ].
     Explorer_GetSelection(hwnd="")
@@ -60,35 +55,20 @@ return
 SendInput !JTGA
 return
 
-;Personal Data
-:*O:jac`t::Jacob Erbele
-Return
-^#1::
-    Send,3454 41st St S, Fargo, ND  58104
-Return
-^#2::
-    Send,jacobe@svl.com
-Return
-^#3::
-    Send,701-936-6473
-Return
-
 ;Project Data in Word
-^#4::
+^#4:: ;Paste project name from WinTitle
     WinGetTitle, Title, A
     FoundPos := RegExMatch(Title, "-\s(.*)\.", SubPat1)
     Clipboard = %SubPat11%
     Send, ^v
 Return
 
-^#5::
+^#5:: ;Paste 6 or 7 digit number from WinTitle
     WinGetTitle, Title, A
-    FoundPos := RegExMatch(Title, "\d{6,6}", SubPat)
+    FoundPos := RegExMatch(Title, "\d{6,7}", SubPat)
     Clipboard = %SubPat%
     Send, ^v
 Return
-
-
 
 ;Open Projects folder when CTRL + SHIFT + p is pressed
 ^#p::
@@ -100,7 +80,16 @@ Return
   Run, "L:\"
 Return
 
-;BlueBeam Page Control
+;call number using Teams
+^F12::
+send, ^c
+ClipWait
+param := "tel://"Clipboard
+Run, %param%
+return
+
+;## BlueBeam Page Control ##
+
 ;CTRL + Mouse Back = Previous Page
 ^XButton1::
 send ^{Left}
@@ -116,10 +105,3 @@ Return
 send {Ctrl down}49{Ctrl Up}
 Return
 
-;call number using Teams
-^F12::
-send, ^c
-ClipWait
-param := "tel://"Clipboard
-Run, %param%
-return

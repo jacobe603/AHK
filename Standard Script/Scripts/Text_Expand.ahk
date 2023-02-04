@@ -1,4 +1,17 @@
 
+;Personal Data
+:*O:jac`t::Jacob Erbele
+Return
+^#1::
+    Send,3454 41st St S, Fargo, ND  58104
+Return
+^#2::
+    Send,jacobe@svl.com
+Return
+^#3::
+    Send,701-936-6473
+Return
+
 ;Customer name when abbreviation then TAB is pressed
 :*O:air`t::Air Mechanical, Inc.
 :*O:all`t::All American Plumbing & Heating
