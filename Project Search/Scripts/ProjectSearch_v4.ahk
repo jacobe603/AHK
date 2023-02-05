@@ -72,7 +72,7 @@ WinGetPos, xIntPos, yIntPos,,,A
         CurrentDateTime := A_YYYY . A_MM . A_DD . A_Hour . A_Min . A_Sec    ; current timestamp
         LastSearchAge := CurrentDateTime - LastSearchTime   ; get the age of the last search in seconds
 
-        If (LastSearchAge < 300 AND LastSearchAge > 0)  ; if the last search was made less than 5 minutes (300 seconds) ago...
+        If (LastSearchAge < 900 AND LastSearchAge > 0)  ; if the last search was made less than 15 minutes (900 seconds) ago...
             FileRead, LastSearchTerm, %LAST_SEARCH_FILE%    ; get the last search term to use as the default new search
     }
 
@@ -310,30 +310,14 @@ OldList:
         LV_GetText(LinkFileName, FocusedRow, 3)
         LV_GetText(LinkFilePath, FocusedRow, 4)
 
-                IfExist, %LinkFilePath%   ; If the file exists and has a path, open the file directory
-                    IniWrite,%LinkFileName%,%ComINIPath%,CurrentProject,FolderName
-                    IniWrite,%LinkFilePath%,%ComINIPath%,CurrentProject,FolderPath
-                    IniWrite,%LinkFilePath%\Orders,%ComINIPath%,CurrentProject,OrdersFolderPath
-                    IniWrite,%LinkFilePath%\Submittals,%ComINIPath%,CurrentProject,SubmittalsFolderPath
-                    IniWrite,%LinkFilePath%\Quotes,%ComINIPath%,CurrentProject,QuotesFolderPath
-                    IniWrite,%LinkFilePath%\Pricing,%ComINIPath%,CurrentProject,PricingFolderPath
-                    IniWrite,%jobno%,%ComINIPath%,CurrentProject,JobNumber
-                    IniWrite,%jobName%,%ComINIPath%,CurrentProject,JobName
+        Gosub, RCsub
 
-                    Run, RC.ahk
-
-        ;   If the file does not exist or there is not path, display an informational message.
-                IfNotExist, %LinkFilePath%
-                    Msgbox, The file no longer exists or has been moved.
     }
     ;if A_GuiEvent = Normal
      ;   {
      ;   msgbox, Lefty
       ;  }
 ;10/28/2022---------------------------
-
-
-
 
 Return
 
@@ -394,9 +378,6 @@ Send !d
 SendInput https://sales.daikinapplied.com/Order-Detail?caller=summary&salesordernumber=%SO%
 SendInput {enter}
 return
-
-
-
 
 run, Chrome.exe "https://sales.daikinapplied.com/Order-Detail?caller=summary&salesordernumber=%SO%"
 return
@@ -550,6 +531,7 @@ GuiControlGet, FocusedControl, FocusV
     if A_ThisHotKey = Space
         ExitApp
     Return
+#IfWinActive
 ;-----------------------
 
 MyListView:
@@ -594,8 +576,10 @@ MyListView:
             Return
     }
 
-   If A_GuiEvent = RightClick  ; IF USER RIGHT CLICKS A SEARCH RESULT, OPEN THE FILE LOCATION
-    {
+
+; MAIN SEARCH RESULTS - IF USER RIGHT CLICKS A SEARCH RESULT, OPEN THE FILE LOCATION
+    If A_GuiEvent = RightClick
+        {
         GuiControlGet, FocusedControl, FocusV
         FocusedRow := LV_GetNext("", "Focused")
 
@@ -609,29 +593,9 @@ MyListView:
             jobno := Trim(jobno, " -")
             Jobname := SubStr(LinkFileName,10,60)
             ; If the file exists and has a path, open the file directory
-                IfExist, %LinkFilePath%
-
-                    IniWrite,%LinkFileName%,%ComINIPath%,CurrentProject,FolderName
-                    IniWrite,%LinkFilePath%,%ComINIPath%,CurrentProject,FolderPath
-                    IniWrite,%LinkFilePath%\Orders,%ComINIPath%,CurrentProject,OrdersFolderPath
-                    IniWrite,%LinkFilePath%\Submittals,%ComINIPath%,CurrentProject,SubmittalsFolderPath
-                    IniWrite,%LinkFilePath%\Quotes,%ComINIPath%,CurrentProject,QuotesFolderPath
-                    IniWrite,%LinkFilePath%\Pricing,%ComINIPath%,CurrentProject,PricingFolderPath
-                    IniWrite,%jobno%,%ComINIPath%,CurrentProject,JobNumber
-                    IniWrite,%jobName%,%ComINIPath%,CurrentProject,JobName
-
-                    Run, RC.ahk
-
-        ;   If the file does not exist or there is not path, display an informational message.
-                IfNotExist, %LinkFilePath%
-                    Msgbox, The file no longer exists or has been moved.
+            Gosub, RCSub
     }
-    ;if A_GuiEvent = Normal
-     ;   {
-     ;   msgbox, Lefty
-      ;  }
     return
-
 
 EndMacroSearchFiles:
     ExitApp
@@ -840,3 +804,21 @@ StartSearch:
 
 return
 ; END START SEARCH
+
+RCSub:
+If FileExist(LinkFileName)  ; If the file exists and has a path, open the file directory
+{
+    IniWrite,%LinkFileName%,%ComINIPath%,CurrentProject,FolderName
+    IniWrite,%LinkFilePath%,%ComINIPath%,CurrentProject,FolderPath
+    IniWrite,%LinkFilePath%\Orders,%ComINIPath%,CurrentProject,OrdersFolderPath
+    IniWrite,%LinkFilePath%\Submittals,%ComINIPath%,CurrentProject,SubmittalsFolderPath
+    IniWrite,%LinkFilePath%\Quotes,%ComINIPath%,CurrentProject,QuotesFolderPath
+    IniWrite,%LinkFilePath%\Pricing,%ComINIPath%,CurrentProject,PricingFolderPath
+    IniWrite,%jobno%,%ComINIPath%,CurrentProject,JobNumber
+    IniWrite,%jobName%,%ComINIPath%,CurrentProject,JobName
+    Run, RC.ahk
+}
+;   If the file does not exist or there is not path, display an informational message.
+If !FileExist(LinkFileName) 
+    Msgbox, The file no longer exists or has been moved.
+Return
