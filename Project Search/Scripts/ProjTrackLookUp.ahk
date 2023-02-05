@@ -6,13 +6,7 @@ SetTitleMatchMode 2
 
 Menu, Tray, Icon, Icons\SVL.png
 
-;^ = ctrl
-;+ = Shift
-;! = alt
-;# = Windows key
-
 ComINIPath = ..\Data\Search.ini
-
 
 IniRead,SalesCode,%ComINIPath%,Sales,SalesCode
 IniRead,jobNum,%ComINIPath%,CurrentProject,JobNumber

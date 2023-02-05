@@ -65,7 +65,6 @@
     Gui, Show,autosize, Project Explorer - %TreeRoot%
     Return
 
-
     SetTitleMatchMode, 1
     #If WinActive("Project Explorer - "TreeRoot)
     XButton1::
@@ -97,7 +96,6 @@
     if (controlname = "SysListView3212")
         WB12.GoBack()
         return
-
 
     FilePath:
     clipboard = %TreeRoot%

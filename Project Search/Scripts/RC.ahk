@@ -1,4 +1,4 @@
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 ; #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 #SingleInstance force
@@ -7,8 +7,6 @@ SetWorkingDir %A_ScriptDir%
 
 #Include Library\JSON.AHK
 
-
-;SetTimer, ForceExitApp,  10000 ; 10 seconds
 ;Ini File for RC Menu Variable Transfer
     ComINIPath = ..\Data\Search.ini
     IniRead,FolderName,%ComINIPath%,CurrentProject,FolderName
@@ -19,6 +17,7 @@ SetWorkingDir %A_ScriptDir%
     IniRead,PricingFolderPath,%ComINIPath%,CurrentProject,PricingFolderPath
     IniRead,JobNumber,%ComINIPath%,CurrentProject,JobNumber
     IniRead,AuthKey,%ComINIPath%,Auth,AuthKey
+    PlansFolderPath = %FolderPath%\Plans
 
 html1 =
 (
@@ -66,25 +65,22 @@ Menu, MyMenu, Add, Submittals, MenuHandlerD3
 Menu, MyMenu, Icon, Submittals,Icons\Submittals.ico
 Menu, MyMenu, Add, Orders, MenuHandlerD4
 Menu, MyMenu, Icon, Orders,Icons\Order.png
-Menu, MyMenu, Add, Project Explorer, MenuHandlerD5
-
+Menu, MyMenu, Add, Plans, MenuHandlerD5
+Menu, MyMenu, Add, Project Explorer, MenuHandlerD6
 
 ;PO Tracking
 Menu, MyMenu, Add
 Menu, MyMenu, Add, Ruskin Order, MenuHandlerC2
 ; --------------------------Main Menu - Subs---------------------------------
-
 ; Quick Access Items
 Menu, MyMenu, Add  ; Add a separator line below the submenu.
 Menu, MyMenu, Add, Copy File Path, MenuHandlerE2
 Menu, MyMenu, Icon, Copy File Path, Icons\FilePath.ico
 
-
 Menu, MyMenu, Add  ; Add a separator line below the submenu.
 Menu, MyMenu, Add, Update Auth Key , MenuHandlerF1
 
 Menu, MyMenu, Show
-
 return
 
 MenuHandler:
@@ -211,25 +207,15 @@ MenuHandlerD4:
     ExitApp
 
 MenuHandlerD5:
+    run, %PlansFolderPath%
+    ExitApp
+
+MenuHandlerD6:
     #Include ProjExplore.ahk
-
-
-
-
-;SHOW:
-;Gui, submit
-;sel := wb.Document.SelectedItems
-;            for item in sel
-;                MsgBox % item.path
-;Gui, Destroy
-;Return
-
-
-
 
 MenuHandlerE1:
         run, REST - Drop Ship Address.ahk
-        ;run, Project Paster_v3.ahk
+        ;run, Project Paster.ahk
     ExitApp
 
 MenuHandlerE2:
@@ -249,6 +235,8 @@ MenuHandlerF1:
     run, "REST - GET AUTH.ahk"
     ExitApp
 
+
+    
 GuiExit:
 GuiClose:
 ForceExitApp:

@@ -55,4 +55,3 @@ GuiClose:  ; Indicate that the script should exit automatically when the window 
 GuiEscape:
 Gui, Destroy
 ExitApp
-;~ ExitApp

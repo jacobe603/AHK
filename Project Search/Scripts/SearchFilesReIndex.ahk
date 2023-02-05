@@ -24,11 +24,8 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
     INDEX_FILE := A_MyDocuments . "\FileIndex.csv"
     INDEX_FILE2 := A_MyDocuments . "\FileIndexFULL.csv"
 
-
-
 ; INCREASE MAXIMUM MEMORY ALLOWED FOR EACH VARIABLE - NECESSARY FOR THE INDEXING VARIABLE
     #MaxMem 4095
-
 
 ; COUNT THE NUMBER OF SEARCH LOCATIONS
     n :=
@@ -43,15 +40,12 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
         }
     }
 
-
 ; CREATE GUI
     Gui, Add, Text, w1250, Indexing Files...
     Gui, Add, StatusBar, +wrap, Bar's starting text
     SB_SetParts(65)
     SB_SetText(A_LoopFileFullPath)
     Gui, Show
-
-
 
 ; INDEX FILES AND UPDATE GUI WITH STATUS
     Loop, %n%
@@ -114,8 +108,6 @@ SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
             }               
         }
     }
-
-
 
 ; GUI Status Update
     SB_SetText("SORTING RESULTS...", 1)
