@@ -1,5 +1,5 @@
 Project Search® is a tool that indexes all the folder names in the S:\Project directory allowing you to search by name or Project number.
-Created by Jacob Erbele - 9/23/2021
+Created by Jacob Erbele - 02/05/2023
 
 
 ---Installation---
