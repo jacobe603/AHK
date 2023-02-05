@@ -11,12 +11,12 @@ SetWorkingDir %A_ScriptDir%
     ComINIPath = ..\Data\Search.ini
     IniRead,FolderName,%ComINIPath%,CurrentProject,FolderName
     IniRead,FolderPath,%ComINIPath%,CurrentProject,FolderPath
-    IniRead,OrdersFolderPath,%ComINIPath%,CurrentProject,OrdersFolderPath
-    IniRead,SubmittalsFolderPath,%ComINIPath%,CurrentProject,SubmittalsFolderPath
-    IniRead,QuotesFolderPath,%ComINIPath%,CurrentProject,QuotesFolderPath
-    IniRead,PricingFolderPath,%ComINIPath%,CurrentProject,PricingFolderPath
     IniRead,JobNumber,%ComINIPath%,CurrentProject,JobNumber
     IniRead,AuthKey,%ComINIPath%,Auth,AuthKey
+    OrdersFolderPath = %FolderPath%\Orders
+    SubmittalsFolderPath = %FolderPath%\Submittals
+    QuotesFolderPath = %FolderPath%\Quotes
+    PricingFolderPath = %FolderPath%\Pricing
     PlansFolderPath = %FolderPath%\Plans
 
 html1 =

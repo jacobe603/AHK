@@ -806,19 +806,15 @@ return
 ; END START SEARCH
 
 RCSub:
-If FileExist(LinkFileName)  ; If the file exists and has a path, open the file directory
+If FileExist(LinkFilePath)  ; If the file exists and has a path, open the file directory
 {
     IniWrite,%LinkFileName%,%ComINIPath%,CurrentProject,FolderName
     IniWrite,%LinkFilePath%,%ComINIPath%,CurrentProject,FolderPath
-    IniWrite,%LinkFilePath%\Orders,%ComINIPath%,CurrentProject,OrdersFolderPath
-    IniWrite,%LinkFilePath%\Submittals,%ComINIPath%,CurrentProject,SubmittalsFolderPath
-    IniWrite,%LinkFilePath%\Quotes,%ComINIPath%,CurrentProject,QuotesFolderPath
-    IniWrite,%LinkFilePath%\Pricing,%ComINIPath%,CurrentProject,PricingFolderPath
     IniWrite,%jobno%,%ComINIPath%,CurrentProject,JobNumber
     IniWrite,%jobName%,%ComINIPath%,CurrentProject,JobName
     Run, RC.ahk
 }
 ;   If the file does not exist or there is not path, display an informational message.
-If !FileExist(LinkFileName) 
-    Msgbox, The file no longer exists or has been moved.
+If !FileExist(LinkFilePath) 
+    Msgbox, This job folder no longer exists or has been moved/deleted.
 Return
