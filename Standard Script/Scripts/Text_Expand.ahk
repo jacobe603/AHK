@@ -135,4 +135,5 @@ return
 ;Misc Hot Strings
 :*:p.edge::\\SVLFS2.ad.svl.com\Sales-2$\Jobs\TITUS EDGE JOBS\{Enter}
 :*:p.cook::\\SVLFS2.ad.svl.com\Sales-2$\Jobs\COOK JOBS\{Enter}
+:*:p.down::C:\Users\%username%\Downloads\{Enter}
 Return

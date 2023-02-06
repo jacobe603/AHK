@@ -8,6 +8,8 @@ xl := ""
 WinGetTitle, wintitle, A
 WinGet, process, ProcessName, A
 
+Try 
+{
 if process = OUTLOOK.EXE
     {
     oApp := ComObjActive("Outlook.Application")	; Get Outlook
@@ -15,7 +17,6 @@ if process = OUTLOOK.EXE
     oSel := oExp.Selection						; Get the selection.
     oItem := oSel.Item(1)						; Get a selected item.
     wintitle := oItem.subject                   ; Get Subject Line
-    ;MsgBox, % wintitle
     }
 
 if wintitle = Project Tracker JE.xlsm - Excel   ; Use first column of Project Tracker spread sheet. Update to file name of tracker.
@@ -50,6 +51,16 @@ else if match1
 		GoToJobFolder(JobNo)
    		return
     }
+}
+Catch, e ;Error Handling - allows for manual entry of JN
+    {
+        InputBox, Jn, Job Number, Enter JN, , 180, 125
+        if ErrorLevel
+            Exit
+        else
+            GoToJobFolder(Jn)
+        Exit
+    }
 
 GoToJobFolder(match)     ; Function that sorts through folder names on S: drive to find the match and then opens the folder.
 {
@@ -67,4 +78,5 @@ GoToJobFolder(match)     ; Function that sorts through folder names on S: drive 
         Run, %jobpath%
     Return
 }
+
 

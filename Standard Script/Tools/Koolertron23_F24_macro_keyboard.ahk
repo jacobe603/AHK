@@ -1,3 +1,5 @@
+
+
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 Menu, Tray, Icon, shell32.dll, 283 ;if commented in, this line will turn the H icon into a little grey keyboard-looking thing.
 ;SetKeyDelay, 0 ;IDK exactly what this does.

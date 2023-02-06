@@ -26,9 +26,10 @@ if process = OUTLOOK.EXE
     oExp := oApp.ActiveExplorer					; Get the ActiveExplorer.
     oSel := oExp.Selection						; Get the selection.
     oItem := oSel.Item(1)						; Get a selected item.
-    wintitle := oItem.subject                   ; Get Subject Line
+    subject := oItem.subject                   ; Get Subject Line
     id := oItem.EntryID
     clipboard := "outlook:"id
+    msgbox, Entry ID for %subject% has been added to clipboard. `n%id%
 }
 return
 
