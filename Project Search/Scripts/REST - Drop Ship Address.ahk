@@ -29,7 +29,7 @@ ComINIPath=..\Data\Search.ini
     URL:="https://objm.svl.com/svl-services/rest/drop-ship?orderNo=" . JobNumber
     oHTTP.Open("GET",URL)
     oHTTP.SetRequestHeader("Authorization", AuthKey)
-    ;OnError("LogError")
+    OnError("LogError")
     oHTTP.Send()
     Response:=oHTTP.ResponseText
     FileAppend,%Response%,%ResponseFileDownload%
@@ -84,3 +84,10 @@ GUIClose:
 GUIEscape:
 ExitApp
 
+LogError(exception) { ;Most errors are due to oAuth. This just autoruns the GET AUTH and reloads script.
+    run, REST - GET AUTH.ahk
+    Reload
+    ;msgbox, % "Error on line " exception.Line ": " exception.Message "`n"
+    ExitApp
+}
+return

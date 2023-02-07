@@ -121,21 +121,11 @@ GoToJobFolder(match)     ; Function that sorts through folder names on S: drive 
 }
 
 
-LogError(exception) {
-
-    msgbox, % "Error on line " exception.Line ": " exception.Message "`n"
+LogError(exception) { ;Most errors are due to oAuth. This just autoruns the GET AUTH and reloads script.
+    run, REST - GET AUTH.ahk
+    Reload
+    ;msgbox, % "Error on line " exception.Line ": " exception.Message "`n"
     ExitApp
-    ;global ComINIPath
-    ;run, chrome.exe "https://objm.svl.com/#/dashboard/order-entry"
-    ;sleep, 2000
-    ;send, {F12}
-    ;sleep, 1000
-    ;send, {F5}
-    ;InputBox, authkeynew, Authorization Key
-   ; sleep, 1000
-    ;winset, AlwaysOnTop, , Authorization Key
-    ;IniWrite,"%authkeynew%",%ComINIPath%,Auth,AuthKey
-    ;ExitApp
 }
 return
 

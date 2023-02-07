@@ -78,7 +78,7 @@ return
         }
         return
 
-
+        
 LogError(exception) {
 if WinExist("Project Tracker JE")
     WinActivate

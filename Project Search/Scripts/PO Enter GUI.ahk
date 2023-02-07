@@ -19,8 +19,12 @@ addresses := CSV_ReadCol("addData",1)
 salesCode := "12"
 
 IniRead,jobNo,%ComINIPath%,CurrentProject,JobNumber
-IniRead,OrdersFolderPath,%ComINIPath%,CurrentProject,OrdersFolderPath
 IniRead,jobName,%ComINIPath%,CurrentProject,JobName
+OrdersFolderPath = %FolderPath%\Orders
+SubmittalsFolderPath = %FolderPath%\Submittals
+QuotesFolderPath = %FolderPath%\Quotes
+PricingFolderPath = %FolderPath%\Pricing
+PlansFolderPath = %FolderPath%\Plans
 
 poDate := A_Now
 FormatTime, poDate, %poDate%, MM/dd/yyyy
@@ -251,7 +255,6 @@ GuiControl,, contactNum, %STPhone%
 gui Submit, NoHide
 return
 
-
 PDF:
 gui Submit, NoHide
 MsgBox, % poNumber
@@ -260,7 +263,7 @@ OrdersFolder := OrdersFolderPath "\" mfgPOname
 IfNotExist, %OrdersFolder%
    FileCreateDir, %OrdersFolder%
 PDFscriptPath := "C:\Program Files\Bluebeam Software\Bluebeam Revu\20\Revu\ScriptEngine.exe "
-BlankForm := "C:\Users\jacobe\OneDrive - Schwab Vollhaber Lubratt Inc\Desktop\AHK - Local\Project Search v4\Scripts\TemplateForms\SVL PO - empty.pdf"
+BlankForm := "..\Scripts\TemplateForms\SVL PO - empty.pdf"
 FormData := OrdersFolder "\formdata.fdf"
 
 If FileExist(OrdersFolderPath "\orders.csv")
@@ -465,14 +468,11 @@ FileDelete, % FilledForm
 FileDelete, % Formdata
 FileAppend, %text%, %FormData%
 
-
-
 clipboard := finalpath
 run, % finalpath
 sleep, 5000
 run, % filledForm
 return
-
 
 checkZero(var){
 if var = 0
